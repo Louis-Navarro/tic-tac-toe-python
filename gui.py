@@ -51,9 +51,12 @@ def draw_window():
 
     for row in range(3):
         for col in range(3):
-            if grid[row, col] != '-':
-                char = grid[row, col]
-                text = font.render(char, True, (0, 0, 0))
+            char = grid[row, col]
+            if char != '-':
+                if char == 'X':
+                    text = font.render(char, True, (255, 0, 0))
+                elif char == 'O':
+                    text = font.render(char, True, (0, 0, 255))
 
                 x = col * 200 + 40
                 y = row * 200 - 35
