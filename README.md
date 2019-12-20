@@ -9,4 +9,4 @@ This is a basic Tic Tac Toe game made with Python
 
 2. Execute `pip install -r requirements.txt` to download every package needed
 
-3. Done ! You can know play Tic Tac Toe in a terminal or with a GUI !
+3. Done ! You can now play Tic Tac Toe in a terminal or with a GUI !
