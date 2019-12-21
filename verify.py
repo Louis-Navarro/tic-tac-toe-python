@@ -36,4 +36,8 @@ def verify(grid):
         return 2
 
     else:
-        return 0
+        if '-' in grid:
+            return 0
+
+        else:
+            return -1

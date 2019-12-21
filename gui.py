@@ -69,8 +69,14 @@ def draw_window():
 def draw_won(winner):
     win.fill((255, 255, 255))
 
-    text = font_winner.render(f'{winner} won', True, (0, 0, 0))
-    win.blit(text, (225, 250))
+    if winner != 'Tie':
+        text = font_winner.render(f'{winner} won', True, (0, 0, 0))
+        win.blit(text, (225, 250))
+
+    else:
+        text = font_winner.render(f'No one won', True, (0, 0, 0))
+        win.blit(text, (150, 250))
+
     pg.display.flip()
 
 
@@ -97,6 +103,9 @@ while run:
 
     elif result == 2:
         draw_won('O')
+
+    elif result == -1:
+        draw_won('Tie')
 
     else:
         check_clicks()
