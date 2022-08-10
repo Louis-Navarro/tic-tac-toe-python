@@ -1,43 +1,30 @@
-def verify_x(grid):
-    for row in range(3):
-        if set(grid[row]) == {'X'}:
-            return True
+import numpy as np
 
-        elif set(grid.T[row]) == {'X'}:
-            return True
 
-    if grid[0, 0] == grid[1, 1] == grid[2, 2] == 'X':
+def verify_symbol(grid, symbol):
+    if ((grid == symbol).sum(axis=0) == 3).any():
         return True
 
-    elif grid[0, 2] == grid[1, 1] == grid[2, 0] == 'X':
+    elif ((grid.T == symbol).sum(axis=0) == 3).any():
         return True
 
-
-def verify_o(grid):
-    for row in range(3):
-        if set(grid[row]) == {'O'}:
-            return True
-
-        elif set(grid.T[row]) == {'O'}:
-            return True
-
-    if grid[0, 0] == grid[1, 1] == grid[2, 2] == 'O':
+    elif ((grid.diagonal() == symbol).sum() == 3):
         return True
 
-    elif grid[0, 2] == grid[1, 1] == grid[2, 0] == 'O':
+    elif ((np.fliplr(grid).diagonal() == symbol).sum() == 3):
         return True
+
+    return False
 
 
 def verify(grid):
-    if verify_x(grid):
-        return 1
+    if verify_symbol(grid, 'X'):
+        return 'X'
 
-    elif verify_o(grid):
-        return 2
+    elif verify_symbol(grid, 'O'):
+        return 'O'
 
-    else:
-        if '-' in grid:
-            return 0
+    elif not np.argwhere(grid == '-').size:
+        return 'Tie'
 
-        else:
-            return -1
+    return None

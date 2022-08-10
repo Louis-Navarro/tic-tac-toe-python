@@ -1,3 +1,18 @@
+# Copyright (C) 2022 Louis-Navarro
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 import numpy as np
 import pygame as pg
 import verify
@@ -27,7 +42,7 @@ font_winner = pg.font.SysFont('sourcecodepro', 50)
 
 
 def check_clicks():
-    global player
+    global player, result
 
     clicks = pg.mouse.get_pressed()
 
@@ -70,11 +85,11 @@ def draw_won(winner):
     win.fill((255, 255, 255))
 
     if winner != 'Tie':
-        text = font_winner.render(f'{winner} won', True, (0, 0, 0))
+        text = font_winner.render(f'{winner} won!', True, (0, 0, 0))
         win.blit(text, (225, 250))
 
     else:
-        text = font_winner.render(f'No one won', True, (0, 0, 0))
+        text = font_winner.render(f'It is a tie!', True, (0, 0, 0))
         win.blit(text, (150, 250))
 
     pg.display.flip()
@@ -94,19 +109,19 @@ while run:
     for e in pg.event.get():
         if e.type == pg.QUIT:
             run = False
+        elif e.type == pg.KEYDOWN:
+            if e.key == pg.K_ESCAPE:
+                result = None
+                grid = np.full((3, 3), '-')
+                player = 'X'
 
     if not result:
         result = verify.verify(grid)
-
-    if result == 1:
-        draw_won('X')
-
-    elif result == 2:
-        draw_won('O')
-
-    elif result == -1:
-        draw_won('Tie')
-
-    else:
         check_clicks()
         draw_window()
+
+    elif result in ('X', 'O', 'Tie'):
+        draw_won(result)
+
+    else:
+        print('wtf')

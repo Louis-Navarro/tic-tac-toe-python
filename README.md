@@ -1,5 +1,4 @@
-Tic Tac Toe game in Python
-==========================
+# Tic Tac Toe game in Python
 
 This is a basic Tic Tac Toe game made with Python
 

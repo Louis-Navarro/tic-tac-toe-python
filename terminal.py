@@ -1,53 +1,35 @@
 import numpy as np
-import verify
-import os
-from colorama import init, Fore
 
-init()
-RED = Fore.RED
-BLUE = Fore.BLUE
-RESET = Fore.RESET
+import verify
+import algorithm
 
 
 def print_grid(grid):
-    for row in range(3):
-        for col in range(3):
-            char = grid[row, col]
+    for row in grid:
+        for char in row:
+            print(char, end=' ')
 
-            if char == 'X':
-                print(RED, char, end=' ')
-            elif char == 'O':
-                print(BLUE, char, end='')
-            else:
-                print(RESET, char, end='')
-
-        print(RESET)
+        print()
 
 
-def main():
-    grid = np.full((3, 3), '-')
+def main(grid):
     player = 'X'
 
-    while not verify.verify(grid):
-        os.system('clear')
-
+    while True:
         print_grid(grid)
 
-        if player == 'X':
-            print(f'Player : {RED}X')
-        else:
-            print(f'Player : {BLUE}O')
+        row = int(input(f'Enter row for player {player} (1-2-3): ')) - 1
+        col = int(input(f'Enter column for player {player} (1-2-3): ')) - 1
 
-        print(RESET, end='')
+        if grid[row, col] != '-':
+            continue
 
-        row = int(input('Enter the row you want to change : ')) - 1
-        col = int(input('Enter the column you want to change : ')) - 1
+        grid[row, col] = player
+        player = 'X' if player == 'O' else 'O'
 
-        if grid[row, col] == '-':
-            grid[row, col] = player
-
-            player = 'X' if player == 'O' else 'O'
+        print(verify.verify(grid))
 
 
-if __name__ == "__main__":
-    main()
+if __name__ == '__main__':
+    grid = np.full((3, 3), '-')
+    main(grid)
