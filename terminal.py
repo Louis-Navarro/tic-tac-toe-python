@@ -38,7 +38,7 @@ class TerminalGame:
                             print('It is a tie!')
                         self.run = False
 
-                except Exception as e:
+                except Exception:
                     row = col = None
                     print('Error')
 

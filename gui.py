@@ -115,7 +115,7 @@ class GuiGame:
             self.win.blit(text, (250, 250))
 
         else:
-            text = self.font_winner.render(f'It is a tie!', True, (0, 0, 0))
+            text = self.font_winner.render('It is a tie!', True, (0, 0, 0))
             self.win.blit(text, (225, 250))
 
         pg.display.flip()
